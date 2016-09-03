@@ -1,0 +1,14 @@
+{
+  "name": "liqo-js",
+  "version": "0.0.1",
+  "description": "Tool untuk mengatur liqo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --harmony app.js"
+  },
+  "author": "Akhmad Syaikhul Hadi",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^1.2.2"
+  }
+}
