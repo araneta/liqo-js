@@ -9,6 +9,13 @@
   "author": "Akhmad Syaikhul Hadi",
   "license": "MIT",
   "dependencies": {
-    "koa": "^1.2.2"
+    "bcryptjs": "^2.3.0",
+    "co-body": "^4.2.0",
+    "co-monk": "^1.0.0",
+    "jsonwebtoken": "^7.1.9",
+    "koa": "^1.2.2",
+    "koa-mount": "^1.3.0",
+    "koa-route": "^2.4.2",
+    "monk": "^3.1.2"
   }
 }
