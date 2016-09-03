@@ -79,6 +79,16 @@ var routes = {
   // REMOVE user by :id
   remove: function *(id, next) {
     if ('DELETE' != this.method) return yield next;
+
+    var user = yield users.findOne({_id: id});
+    if (!user)
+      this.throw(404, 'User with id=' + id + ' was not found');
+
+    var removedUser = yield users.remove(user);
+    if (!removedUser)
+      this.throw(405, 'Unable to remove');
+    else
+      this.body = 'Done';
   },
 
   // HEAD
