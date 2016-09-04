@@ -98,7 +98,7 @@ var routes = {
 
   // OPTIONS
   options: function *() {
-    this.set('Allow', 'HEAD,GET,PUT,DELETE,OPTIONS');
+    this.set('Allow', 'HEAD,GET,POST,PUT,DELETE,OPTIONS');
     this.status = 200;
   },
 
