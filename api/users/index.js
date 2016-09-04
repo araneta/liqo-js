@@ -1,7 +1,6 @@
 var parse = require('co-body');
 var monk = require('monk');
 var wrap = require('co-monk');
-var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var _ = require('koa-route');
 var koa = require('koa');
