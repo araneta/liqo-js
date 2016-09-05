@@ -18,7 +18,6 @@ var routes = {
 
   // POST a new user
   auth: function *(next) {
-    console.log(this);
     if ('POST' != this.method) return yield next;
 
     var body = yield parse(this);
