@@ -50,3 +50,11 @@ Penggunaan API bisa dicoba dilakukan dengan menggunakan [curl](https://curl.haxx
 * `curl -v -X POST -H "Content-Type: application/json" -d '{"user_id": "57cb459276184042cc64c38e","date": "2016-09-06","records":[{"ibadah_id":"57cd533a6f8d8a4df8ad5a17", "value":3}]}' http://localhost:3000/api/mutabaahs/:id`
 * `curl -v -X PUT -H "Content-Type: application/json" -d '{"date":"2016-09-04"}' http://localhost:3000/api/mutabaahs/:id`
 * `curl -v -X DELETE http://localhost:3000/api/mutabaahs/:id`
+
+## Author
+
+Akhmad Syaikhul Hadi
+
+## License
+
+[The MIT License](http://opensource.org/licenses/MIT)
