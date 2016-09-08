@@ -24,8 +24,9 @@ var routes = {
     {
       yield next;
     }
-
-    this.throw(405, 'Method is not allowed');
+    else {
+      this.throw(405, 'Method is not allowed');
+    }
   },
 
   // POST a new user
