@@ -35,7 +35,7 @@ Penggunaan API bisa dicoba dilakukan dengan menggunakan [curl](https://curl.haxx
 
 * `curl -v -X POST -H "Content-Type: application/json" -d '{"username":"user","password":"pass"}' http://localhost:3000/auth`
 
-### Ibadahs
+### Ibadah
 
 * `curl -v -X GET http://localhost:3000/api/ibadahs`
 * `curl -v -X GET http://localhost:3000/api/ibadahs/:id`
@@ -50,6 +50,29 @@ Penggunaan API bisa dicoba dilakukan dengan menggunakan [curl](https://curl.haxx
 * `curl -v -X POST -H "Content-Type: application/json" -d '{"user_id": "57cb459276184042cc64c38e","date": "2016-09-06","records":[{"ibadah_id":"57cd533a6f8d8a4df8ad5a17", "value":3}]}' http://localhost:3000/api/mutabaahs/:id`
 * `curl -v -X PUT -H "Content-Type: application/json" -d '{"date":"2016-09-04"}' http://localhost:3000/api/mutabaahs/:id`
 * `curl -v -X DELETE http://localhost:3000/api/mutabaahs/:id`
+
+## Otorisasi API
+
+API yang tidak memerlukan otorisasi:
+* Auth API
+* Users API (hanya POST)
+
+API yang butuh otorisasi:
+* Users API (GET, PUT, DELETE)
+* Ibadah API
+* Mutabaah API
+
+Setelah melakukan otentifikasi via Auth API, server akan memberikan [json-web-token](https://jwt.io/) dalam header response dengan format berikut:
+
+```
+Authorization: Bearer <token>
+```
+
+Header di atas perlu disertakan dalam setiap request untuk resource yang butuh otorisasi. Contoh via [curl](https://curl.haxx.se/):
+
+```
+$ curl -v -X GET -H "Authorization: Bearer <token>" http://localhost:3000/api/users
+```
 
 ## Author
 
