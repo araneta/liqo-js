@@ -1,5 +1,7 @@
 # Liqo.JS
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?button-url=https://github.com/berkedel/liqo-js/tree/master&template=https://github.com/berkedel/liqo-js/tree/master)
+
 Untuk saat ini [Liqo.JS](https://github.com/berkedel/liqo-js) bisa digunakan sebagai backend program mutabaah.
 
 ## Pra-Instalasi

@@ -6,6 +6,13 @@
   "scripts": {
     "start": "node --harmony app.js"
   },
+  "keywords": [
+    "koajs",
+    "web",
+    "liqo",
+    "mutabaah",
+    "api"
+  ],
   "author": "Akhmad Syaikhul Hadi",
   "license": "MIT",
   "dependencies": {

@@ -1,0 +1,17 @@
+{
+  "name": "liqo-js",
+  "description": "Tool untuk mengatur liqo",
+  "repository": "https://github.com/berkedel/liqo-js",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["koajs", "web", "liqo", "mutabaah", "api"],
+  "env": {
+    "SIGNING_SECRET": {
+      "description": "A secret key for verifying the integrity of signed jsonwebtoken.",
+      "generator": "secret"
+    }
+  },
+  "addons": [{
+    "plan": "mongolab:sandbox",
+    "as": "MONGO"
+  }],
+}
