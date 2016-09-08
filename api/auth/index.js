@@ -16,6 +16,18 @@ var secret = process.env.SIGNING_SECRET || 'secret';
 
 var routes = {
 
+  check: function *(next) {
+    if (this.method == 'POST' ||
+        this.method == 'OPTIONS' ||
+        this.method == 'HEAD' ||
+        this.method == 'TRACE')
+    {
+      yield next;
+    }
+
+    this.throw(405, 'Method is not allowed');
+  },
+
   // POST a new user
   auth: function *(next) {
     if ('POST' != this.method) return yield next;
@@ -40,7 +52,7 @@ var routes = {
     };
     var token = jwt.sign(profile, secret, { expiresIn: 60*60*24 });
 
-    this.set('Authorization', token);
+    this.set('Authorization', 'Bearer ' + token);
     this.body = 'Done';
   },
 
@@ -62,6 +74,7 @@ var routes = {
   }
 };
 
+app.use(routes.check);
 app.use(_.post('/', routes.auth));
 app.use(_.options('/', routes.options));
 app.use(_.trace('/', routes.trace));
