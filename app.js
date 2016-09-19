@@ -10,6 +10,8 @@ var apiAuth = require('./api/auth');
 var apiUsers = require('./api/users');
 var apiIbadahs = require('./api/ibadahs');
 var apiMutabaahs = require('./api/mutabaahs');
+var apiGroups = require('./api/groups');
+var apiMembers = require('./api/members');
 
 // unprotected middleware
 app.use(mount('/api/auth', apiAuth));
@@ -24,6 +26,8 @@ app.use(jwt({secret: secret}));
 // protected middleware
 app.use(mount('/api/ibadahs', apiIbadahs));
 app.use(mount('/api/mutabaahs', apiMutabaahs));
+app.use(mount('/api/groups', apiGroups));
+app.use(mount('/api/members', apiMembers));
 
 app.listen(port);
 console.log('Server is listening to ' + port);

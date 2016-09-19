@@ -40,15 +40,19 @@ var routes = {
     if (!body.user_id)
       this.throw(400, 'User id is required');
 
+    if (!body.group_id)
+      this.throw(400, 'Group id is required');
+
     if (!body.date)
       this.throw(400, 'Date is required');
 
     var foundMutabaah = yield mutabaahs.findOne({
       user_id: body.user_id,
+      group_id: body.group_id,
       date: body.date
     });
     if (foundMutabaah)
-      this.throw(409, 'Mutabaah at date=' + body.date + ' for user_id=' + body.user_id + ' is exists');
+      this.throw(409, 'Mutabaah at date=' + body.date + ' for user_id=' + body.user_id + ' and group_id=' + body.group_id + ' is exists');
 
     if (!body.records)
       this.throw(400, 'Record data is required');

@@ -8,87 +8,84 @@ var app = koa();
 
 var dbUri = process.env.MONGODB_URI || 'localhost/liqo';
 var db = monk(dbUri);
-var ibadahs = wrap(db.get('ibadah'));
+var groups = wrap(db.get('groups'));
 
 var routes = {
 
-  // GET all ibadah
+  // GET all groups
   index: function *(next) {
     if ('GET' != this.method) return yield next;
 
-    var list = yield ibadahs.find({});
+    var list = yield groups.find({});
     this.body = list;
   },
 
-  // GET ibadah by :id
+  // GET groups by :id
   show: function *(id, next) {
     if ('GET' != this.method) return yield next;
 
-    var ibadah = yield ibadahs.findOne({_id: id});
+    var grop = yield groups.findOne({_id: id});
 
-    if (!ibadah)
-      this.throw(404, 'Ibadah with id=' + id + ' was not found');
+    if (!group)
+      this.throw(404, 'Group with id=' + id + ' was not found');
 
-    this.body = ibadah;
+    this.body = group;
   },
 
-  // POST a new ibadah
+  // POST a new group
   create: function *(next) {
     if ('POST' != this.method) return yield next;
 
     var body = yield parse(this);
-    if (!body.group_id)
-      this.throw(400, 'Group id is required');
+    if (!body.owner_id)
+      this.throw(400, 'Owner id is required');
 
     if (!body.name)
       this.throw(400, 'Name is required');
 
-    if (!body.type)
-      this.throw(400, 'Type [yesno | fillnumber] is required');
-
-    var foundIbadah = yield ibadahs.findOne({
-      group_id: body.group_id,
+    var foundGroup = yield groups.findOne({
+      owner_id: body.owner_id,
       name: body.name
     });
-    if (foundIbadah)
-      this.throw(409, 'Ibadah with name=' + body.name + ' in group_id=' + body.group_id + ' is exists');
+    if (foundGroup)
+      this.throw(409, 'Group with name=' + body.name + ' created by owner_id=' + body.owner_id + ' is exists');
 
-    var createdIbadah = yield ibadahs.insert(body);
-    if (!createdIbadah)
-      this.throw(405, 'Ibadah could not be created');
+    var createdGroup = yield groups.insert(body);
+    if (!createdGroup)
+      this.throw(405, 'Group could not be created');
 
     this.status = 201;
-    this.set('Location', this.originalUrl + '/' + createdIbadah._id);
+    this.set('Location', this.originalUrl + '/' + createdGroup._id);
     this.body = 'Done';
   },
 
-  // PUT a new data to ibadah by :id
+  // PUT a new data to group by :id
   modify: function *(id, next) {
     if ('PUT' != this.method) return yield next;
 
     var data = yield parse(this);
 
-    var ibadah = yield ibadahs.findOne({_id: id});
-    if (!ibadah)
-      this.throw(404, 'Ibadah with id=' + id + ' was not found');
+    var group = yield groups.findOne({_id: id});
+    if (!group)
+      this.throw (404, 'Group with id=' + id + ' was not found');
 
-    var updatedIbadah = yield ibadahs.update(ibadah, {$set: data});
-    if (!updatedIbadah)
+    var updatedGroup = yield groups.update(group, {$set: data});
+    if (!updatedGroup)
       this.throw(405, 'Unable to update');
     else
       this.body = 'Done';
   },
 
-  // REMOVE ibadah by :id
+  // REMOVE group by :id
   remove: function *(id, next) {
     if ('DELETE' != this.method) return yield next;
 
-    var ibadah = yield ibadahs.findOne({_id: id});
-    if (!ibadah)
-      this.throw(404, 'Ibadah with id=' + id + ' was not found');
+    var group = yield groups.findOne({_id: id});
+    if (!group)
+      this.throw(404, 'Group with id=' + id + ' was not found');
 
-    var removedIbadah = yield ibadahs.remove(ibadah);
-    if (!removedIbadah)
+    var removedGroup = yield groups.remove(group);
+    if (!removedGroup)
       this.throw(405, 'Unable to remove');
     else
       this.body = 'Done';
