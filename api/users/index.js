@@ -68,6 +68,10 @@ var routes = {
     if (!user)
       this.throw (404, 'User with id=' + id + ' was not found');
 
+    if (data.password) {
+      data.password = bcrypt.hashSync(data.password);
+    }
+
     var updatedUser = yield users.update(user, {$set: data});
     if (!updatedUser)
       this.throw(405, 'Unable to update');
