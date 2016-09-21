@@ -54,6 +54,7 @@ var routes = {
     var token = jwt.sign(profile, secret, { expiresIn: 60*60*24 });
 
     this.set('Authorization', 'Bearer ' + token);
+    this.set('expires_in', 60*60*24);
     this.body = 'Done';
   },
 
