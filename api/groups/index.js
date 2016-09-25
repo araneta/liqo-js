@@ -9,6 +9,7 @@ var app = koa();
 var dbUri = process.env.MONGODB_URI || 'localhost/liqo';
 var db = monk(dbUri);
 var groups = wrap(db.get('groups'));
+var members = wrap(db.get('members'));
 
 var routes = {
 
@@ -53,6 +54,14 @@ var routes = {
     var createdGroup = yield groups.insert(body);
     if (!createdGroup)
       this.throw(405, 'Group could not be created');
+
+    var query = {
+      group_id: createdGroup._id.toString(),
+      user_id: body.owner_id
+    };
+    var foundMember = yield members.findOne(query);
+    if (!foundMember)
+      yield members.insert(query);
 
     this.status = 201;
     this.set('Location', this.originalUrl + '/' + createdGroup._id);
