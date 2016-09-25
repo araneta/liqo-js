@@ -49,7 +49,7 @@ Penggunaan API bisa dicoba dilakukan dengan menggunakan [curl](https://curl.haxx
 
 * `curl -v -X GET http://localhost:3000/api/members`
 * `curl -v -X GET http://localhost:3000/api/members/:id`
-* `curl -v -X POST -H "Content-Type: application/json" -d '{"member_id": "USER_ID", "group_id": "GROUP_ID"}' http://localhost:3000/api/members`
+* `curl -v -X POST -H "Content-Type: application/json" -d '{"user_id": "USER_ID", "group_id": "GROUP_ID"}' http://localhost:3000/api/members`
 * `curl -v -X PUT -H "Content-Type: application/json" -d '{"group_id":"GROUP_ID"}' http://localhost:3000/api/members/:id`
 * `curl -v -X DELETE http://localhost:3000/api/members/:id`
 
