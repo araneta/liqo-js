@@ -12,6 +12,7 @@ var dbUri = process.env.MONGODB_URI || 'localhost/liqo';
 var db = monk(dbUri);
 var users = wrap(db.get('users'));
 var mutabaahs = wrap(db.get('mutabaahs'));
+var members = wrap(db.get('members'));
 
 var secret = process.env.SIGNING_SECRET || 'secret';
 
@@ -32,9 +33,12 @@ var routes = {
     if (!me)
       throw(404, 'User with active session was not found');
 
+    var userMembers = yield members.find({user_id: profile.id}, 'group_id');
+
     this.body = {
       id: profile.id,
       name: me.username,
+      groups: userMembers.map(d => d.group_id),
       session: {
         issued_at: profile.iat,
         expired_at: profile.exp
