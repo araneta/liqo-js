@@ -42,9 +42,15 @@ var routes = {
 
     if (!body.name)
       this.throw(400, 'Name is required');
+    
+    if (!body.target)
+      this.throw(400, 'target is required');
 
     if (!body.type)
       this.throw(400, 'Type [yesno | fillnumber] is required');
+    
+    if (body.type == 'fillnumber' && !body.unit_name)
+      this.throw(400, 'unit_name is required for type fillnumber');
 
     var foundIbadah = yield ibadahs.findOne({
       group_id: body.group_id,
