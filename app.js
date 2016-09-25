@@ -8,6 +8,7 @@ var secret = process.env.SIGNING_SECRET || 'secret';
 
 var apiAuth = require('./api/auth');
 var apiUsers = require('./api/users');
+var apiUser = require('./api/user');
 var apiIbadahs = require('./api/ibadahs');
 var apiMutabaahs = require('./api/mutabaahs');
 var apiGroups = require('./api/groups');
@@ -24,6 +25,7 @@ app.use(mount('/api/users', apiUsers));
 // middleware below is protected
 app.use(jwt({secret: secret}));
 // protected middleware
+app.use(mount('/api/user', apiUser));
 app.use(mount('/api/ibadahs', apiIbadahs));
 app.use(mount('/api/mutabaahs', apiMutabaahs));
 app.use(mount('/api/groups', apiGroups));
