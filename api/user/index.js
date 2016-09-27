@@ -11,7 +11,7 @@ var app = koa();
 var dbUri = process.env.MONGODB_URI || 'localhost/liqo';
 var db = monk(dbUri);
 var users = wrap(db.get('users'));
-var mutabaahs = wrap(db.get('mutabaahs'));
+var mutabaahs = wrap(db.get('mutabaah'));
 var members = wrap(db.get('members'));
 
 var secret = process.env.SIGNING_SECRET || 'secret';
