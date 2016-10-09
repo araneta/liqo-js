@@ -25,7 +25,7 @@ var routes = {
   show: function *(id, next) {
     if ('GET' != this.method) return yield next;
 
-    var grop = yield groups.findOne({_id: id});
+    var group = yield groups.findOne({_id: id});
 
     if (!group)
       this.throw(404, 'Group with id=' + id + ' was not found');
