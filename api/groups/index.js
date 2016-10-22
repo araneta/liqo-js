@@ -10,6 +10,7 @@ var dbUri = process.env.MONGODB_URI || 'localhost/liqo';
 var db = monk(dbUri);
 var groups = wrap(db.get('groups'));
 var members = wrap(db.get('members'));
+var allibadahs = wrap(db.get('ibadah'));
 
 var routes = {
 
@@ -31,6 +32,20 @@ var routes = {
       this.throw(404, 'Group with id=' + id + ' was not found');
 
     this.body = group;
+  },
+
+  // GET ibadahs for this group
+  ibadahs: function *(id, next) {
+    if ('GET' != this.method) return yield next;
+    
+    var group = yield groups.findOne({_id: id});
+
+    if (!group)
+      this.throw (404, 'Group with id=' + id + ' was not found');
+
+    var list = yield allibadahs.find({group_id: id});
+
+    this.body = list;
   },
 
   // POST a new group
@@ -120,6 +135,7 @@ var routes = {
 
 app.use(_.get('/', routes.index));
 app.use(_.get('/:id', routes.show));
+app.use(_.get('/:id/ibadahs', routes.ibadahs));
 app.use(_.post('/', routes.create));
 app.use(_.put('/:id', routes.modify));
 app.use(_.delete('/:id', routes.remove));
