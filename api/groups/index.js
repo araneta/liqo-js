@@ -48,6 +48,20 @@ var routes = {
     this.body = list;
   },
 
+  // GET members for this group
+  members: function *(id, next) {
+    if ('GET' != this.method) return yield next;
+
+    var group = yield groups.findOne({_id: id});
+
+    if (!group)
+      this.throw (404, 'Group with id=' + id + ' was not found');
+
+    var list = yield members.find({group_id: id});
+
+    this.body = list;
+  },
+
   // POST a new group
   create: function *(next) {
     if ('POST' != this.method) return yield next;
@@ -136,6 +150,7 @@ var routes = {
 app.use(_.get('/', routes.index));
 app.use(_.get('/:id', routes.show));
 app.use(_.get('/:id/ibadahs', routes.ibadahs));
+app.use(_.get('/:id/members', routes.members));
 app.use(_.post('/', routes.create));
 app.use(_.put('/:id', routes.modify));
 app.use(_.delete('/:id', routes.remove));
