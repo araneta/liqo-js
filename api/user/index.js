@@ -36,7 +36,7 @@ var routes = {
     var userMembers = yield members.find({user_id: profile.id}, 'group_id');
 
     this.body = {
-      id: profile.id,
+      _id: profile.id,
       name: me.username,
       groups: userMembers.map(d => d.group_id),
       session: {
