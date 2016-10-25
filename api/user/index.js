@@ -37,7 +37,7 @@ var routes = {
 
     this.body = {
       _id: profile.id,
-      name: me.username,
+      username: me.username,
       groups: userMembers.map(d => d.group_id),
       session: {
         issued_at: profile.iat,
